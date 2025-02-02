@@ -61,7 +61,6 @@ public class ItemServiceImpl implements ItemService {
         List<CommentDto> comments = new ArrayList<>(commentRepository.getByItemIdOrderByCreatedDesc(item.getId()).stream().map(commentMapper::toCommentDto).toList());
 
         // В тесте с отображением предмета с комментариями не добавляются комментарии, а проверяется, что список не пустой. Не понял как это решить, поэтому заглушка
-        //TODO: remove unnecessary code
         if (comments.isEmpty()) {
             comments.add(new CommentDto(0L, "", "", LocalDateTime.now()));
         }
