@@ -13,9 +13,9 @@ public class UserMapper {
         );
     }
 
-    public User toModel(UserDto userDto, long userId) {
+    public User toModel(UserDto userDto) {
         return new User(
-                userId,
+                userDto.getId(),
                 userDto.getName(),
                 userDto.getEmail()
         );

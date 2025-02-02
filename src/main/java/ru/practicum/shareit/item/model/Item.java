@@ -8,9 +8,10 @@ import ru.practicum.shareit.user.User;
 @Table(name = "items")
 @Getter @Setter
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Item {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column

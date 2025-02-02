@@ -3,6 +3,7 @@ package ru.practicum.shareit.booking;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.user.User;
@@ -12,9 +13,10 @@ import java.time.LocalDateTime;
 @Table(name = "bookings")
 @Getter @Setter
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Booking {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "start_date")
