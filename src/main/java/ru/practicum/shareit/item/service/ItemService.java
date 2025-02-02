@@ -21,5 +21,6 @@ public interface ItemService {
 
     List<ItemDto> searchItemsByQuery(String query);
 
+    @Transactional
     CommentDto createComment(Long userId, Long itemId, CommentDto commentDto);
 }

@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import ru.practicum.shareit.booking.Booking;
 import java.util.List;
 
 @Data
@@ -19,6 +20,10 @@ public class ItemDtoWithComments {
 
     @NotNull
     private Boolean available;
+
+    Booking lastBooking;
+
+    Booking nextBooking;
 
     private List<CommentDto> comments;
 }
