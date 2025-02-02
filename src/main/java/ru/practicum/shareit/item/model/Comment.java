@@ -5,13 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 import ru.practicum.shareit.user.User;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "comments")
-@Getter @Setter
+@Getter
+@Setter
 @AllArgsConstructor
 @RequiredArgsConstructor
 public class Comment {
