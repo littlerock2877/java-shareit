@@ -2,14 +2,15 @@ package ru.practicum.shareit.booking.dto;
 
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import ru.practicum.shareit.booking.BookingStatus;
-import ru.practicum.shareit.item.model.Item;
-import ru.practicum.shareit.user.User;
+import ru.practicum.shareit.validation.EndAfterStart;
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
+@EndAfterStart
 public class BookingDto {
     private Long id;
 
@@ -19,12 +20,9 @@ public class BookingDto {
     @Future(message = "Booking end time should be in future")
     private LocalDateTime end;
 
-    @NotNull
-    private Item item;
+    private Long itemId;
 
-    @NotNull
-    private User booker;
+    private Long bookerId;
 
-    @NotNull
     private BookingStatus status;
 }

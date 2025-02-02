@@ -1,11 +1,11 @@
-package ru.practicum.shareit.comment;
+package ru.practicum.shareit.item.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import ru.practicum.shareit.item.model.Item;
+import org.hibernate.annotations.CreationTimestamp;
 import ru.practicum.shareit.user.User;
 import java.time.LocalDateTime;
 

@@ -4,11 +4,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import ru.practicum.shareit.booking.dto.BookingDto;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class ItemDto {
+public class ItemDtoWithComments {
     private Long id;
 
     @NotBlank(message = "Item name should not be null and should contains at least one symbol")
@@ -20,7 +20,5 @@ public class ItemDto {
     @NotNull
     private Boolean available;
 
-    private BookingDto lastBooking;
-
-    private BookingDto nextBooking;
+    private List<CommentDto> comments;
 }
