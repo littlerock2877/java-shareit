@@ -41,9 +41,7 @@ public class BookingServiceImpl implements BookingService {
         if (!item.getAvailable()) {
             throw new NotAvailableException(String.format("Item with id %d is not available", bookingDto.getItemId()));
         }
-        bookingDto.setStatus(BookingStatus.WAITING);
-        bookingDto.setId(0L);
-        Booking booking = bookingRepository.save(bookingMapper.toModel(bookingDto, booker, item));
+        Booking booking = bookingRepository.save(bookingMapper.toModel(bookingDto, booker, item, BookingStatus.WAITING, 0L));
         return bookingMapper.toOutputDto(booking, item, booker);
     }
 

@@ -40,4 +40,15 @@ public class BookingMapper {
                 bookingDto.getStatus()
         );
     }
+
+    public Booking toModel(BookingDto bookingDto, User booker, Item item, BookingStatus status, long id) {
+        return new Booking(
+                id,
+                bookingDto.getStart(),
+                bookingDto.getEnd(),
+                item,
+                booker,
+                status
+        );
+    }
 }
