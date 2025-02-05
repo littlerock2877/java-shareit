@@ -1,5 +1,6 @@
 package ru.practicum.shareit.item.storage;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +15,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     Collection<Item> searchByQuery(@Param("query") String query);
 
     List<Item> findAllByOwnerId(Long userId);
+
+    List<Item> getByRequestId(Long id, Sort sort);
 }

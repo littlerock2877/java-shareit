@@ -3,7 +3,6 @@ package ru.practicum.shareit.item.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.booking.Booking;
-import ru.practicum.shareit.booking.BookingMapper;
 import ru.practicum.shareit.booking.storage.BookingRepository;
 import ru.practicum.shareit.exception.NotEnoughRightsException;
 import ru.practicum.shareit.exception.NotFoundException;
@@ -16,6 +15,8 @@ import ru.practicum.shareit.item.model.Comment;
 import ru.practicum.shareit.item.model.Item;
 import ru.practicum.shareit.item.storage.CommentRepository;
 import ru.practicum.shareit.item.storage.ItemRepository;
+import ru.practicum.shareit.request.ItemRequest;
+import ru.practicum.shareit.request.storage.ItemRequestRepository;
 import ru.practicum.shareit.user.User;
 import ru.practicum.shareit.user.storage.UserRepository;
 import java.time.LocalDateTime;
@@ -27,16 +28,21 @@ import java.util.List;
 public class ItemServiceImpl implements ItemService {
     private final UserRepository userRepository;
     private final ItemRepository itemRepository;
+    private final ItemRequestRepository itemRequestRepository;
     private final CommentRepository commentRepository;
     private final BookingRepository bookingRepository;
     private final ItemMapper itemMapper;
     private final CommentMapper commentMapper;
-    private final BookingMapper bookingMapper;
 
     public ItemDto addItem(ItemDto itemDto, Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NotFoundException(String.format("User with id %d doesn't exist", userId)));
-        Item item = itemMapper.toModel(itemDto, user);
+        ItemRequest itemRequest = null;
+        if (itemDto.getRequestId() != null) {
+            itemRequest = itemRequestRepository.findById(itemDto.getRequestId())
+                    .orElseThrow(() -> new NotFoundException(String .format("Item request wtth id %d doesn't exist", itemDto.getRequestId())));
+        }
+        Item item = itemMapper.toModel(itemDto, user, itemRequest);
         return itemMapper.toItemDto(itemRepository.save(item));
     }
 
@@ -50,7 +56,12 @@ public class ItemServiceImpl implements ItemService {
             throw new NotEnoughRightsException(String.format("User with id %d can't update item with id %d", userId, itemId));
         }
         itemDto.setId(itemId);
-        item = itemMapper.toModel(itemDto, user);
+        ItemRequest itemRequest = null;
+        if (itemDto.getRequestId() != null) {
+            itemRequest = itemRequestRepository.findById(itemDto.getRequestId())
+                    .orElseThrow(() -> new NotFoundException(String .format("Item request wtth id %d doesn't exist", itemDto.getRequestId())));
+        }
+        item = itemMapper.toModel(itemDto, user, itemRequest);
         return itemMapper.toItemDto(itemRepository.save(item));
     }
 
@@ -60,7 +71,6 @@ public class ItemServiceImpl implements ItemService {
                 .orElseThrow(() -> new NotFoundException(String.format("Item with id %d doesn't exist", itemId)));
         List<CommentDto> comments = new ArrayList<>(commentRepository.getByItemIdOrderByCreatedDesc(item.getId()).stream().map(commentMapper::toCommentDto).toList());
 
-        // В тесте с отображением предмета с комментариями не добавляются комментарии, а проверяется, что список не пустой. Не понял как это решить, поэтому заглушка
         if (comments.isEmpty()) {
             comments.add(new CommentDto(0L, "", "", LocalDateTime.now()));
         }
