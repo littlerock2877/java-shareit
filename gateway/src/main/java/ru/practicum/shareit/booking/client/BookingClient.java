@@ -45,13 +45,13 @@ public class BookingClient extends BaseClient {
         Map<String, Object> parameters = Map.of(
                 "state", state.name()
         );
-        return get("?state={state}&from={from}&size={size}", userId, parameters);
+        return get("?state={state}", userId, parameters);
     }
 
     public ResponseEntity<Object> findAllByOwner(Long userId, State state) {
         Map<String, Object> parameters = Map.of(
                 "state", state.name()
         );
-        return get("/owner?state={state}&from={from}&size={size}", userId, parameters);
+        return get("/owner?state={state}", userId, parameters);
     }
 }

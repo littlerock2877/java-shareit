@@ -22,7 +22,7 @@ public class ItemRequestController {
         return itemRequestDto;
     }
 
-    @GetMapping()
+    @GetMapping
     public List<ItemRequestDto> getAllItemRequests(@RequestHeader("X-Sharer-User-Id") Long userId) {
         log.info("Getting all item requests of user with id {} - Started", userId);
         List<ItemRequestDto> requests  = requestService.getAllItemRequests(userId);

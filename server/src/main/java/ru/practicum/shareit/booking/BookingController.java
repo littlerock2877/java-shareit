@@ -1,6 +1,5 @@
 package ru.practicum.shareit.booking;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.annotation.Validated;
@@ -28,7 +27,7 @@ public class BookingController {
 
     @PatchMapping("/{bookingId}")
     public BookingOutputDto approveBooking(@RequestHeader("X-Sharer-User-Id") Long userId, @PathVariable Long bookingId,
-                                     @RequestParam(name = "approved") @NotNull Boolean approved) {
+                                     @RequestParam(name = "approved") Boolean approved) {
         log.info("Approving booking with id {} - Started", bookingId);
         BookingOutputDto bookingDto = bookingService.approveBooking(userId, bookingId, approved);
         log.info("Approving booking with id {} - Finished", bookingId);

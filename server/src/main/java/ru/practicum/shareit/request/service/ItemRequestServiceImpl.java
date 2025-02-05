@@ -34,10 +34,8 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     }
 
     @Override
-    public List<ItemRequestDto> getAllItemRequests(Long userId) {
-        userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException(String.format("User with id %d doesn't exist", userId)));
-        return itemRequestRepository.getByRequesterIdOrderByCreatedAsc(userId)
+    public List<ItemRequestDto> getAllItemRequestsForUser(Long userId) {
+        return itemRequestRepository.getByRequesterIdNot(userId)
                 .stream()
                 .map(itemRequest -> {
                     List<Item> items = itemRepository.getByRequestId(itemRequest.getId(), Sort.by("id").descending());
@@ -57,8 +55,8 @@ public class ItemRequestServiceImpl implements ItemRequestService {
     }
 
     @Override
-    public List<ItemRequestDto> getAllItemRequestsForUser(Long userId) {
-        return itemRequestRepository.getByRequesterIdNot(userId)
+    public List<ItemRequestDto> getAllItemRequests(Long userId) {
+        return itemRequestRepository.getByRequesterIdOrderByCreatedAsc(userId)
                 .stream()
                 .map(itemRequest -> {
                     List<Item> items = itemRepository.getByRequestId(itemRequest.getId(), Sort.by("id").descending());
