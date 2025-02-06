@@ -183,8 +183,8 @@
 											</limit>
 											<limit>
 												<counter>CLASS</counter>
-												<value>COVEREDRATIO</value>
-												<maximum>0.01</maximum>
+												<value>MISSEDCOUNT</value>
+												<maximum>4.00</maximum>
 											</limit>
 										</limits>
 									</rule>
